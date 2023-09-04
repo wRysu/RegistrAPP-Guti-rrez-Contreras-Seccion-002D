@@ -17,6 +17,8 @@ export class InicioPage implements OnInit {
   mostrarMenu(){
     this.menuController.open('first')
   }
+
+
 }
 
 

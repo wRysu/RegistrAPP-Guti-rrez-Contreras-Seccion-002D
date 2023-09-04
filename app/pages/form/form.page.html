@@ -10,5 +10,43 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registrate!!</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form >
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Ingresa tu nombre!!</ion-label>
+            <ion-input type="text" placeholder="Harry.." name="nombre"
+            [(ngModel)]="persona.nombre"></ion-input>
+          </ion-item>
 
+          <ion-item>
+            <ion-label position="floating">Ingresa tu email!!</ion-label>
+            <ion-input type="email" placeholder="Harry@duocuc.cl" name="nombre"
+            [(ngModel)]="persona.email"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Ingresa tu password!!</ion-label>
+            <ion-input type="password" placeholder="Ingresa tu contraseña" name="nombre"
+            [(ngModel)]="persona.password"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Ingresa tu password otra vez!!</ion-label>
+            <ion-input type="password" placeholder="Ingresa tu contraseña" name="nombre"
+            [(ngModel)]="persona.password2"></ion-input>
+          </ion-item>
+
+          <ion-button (click)="Enviar()" expand="block" fill="solid" color="warning">
+            Enviar
+          </ion-button>
+
+        </ion-list>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
