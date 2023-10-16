@@ -9,7 +9,7 @@ ion-title {
 
 ion-card{
 	--background: white;
-    --color:black;
+    --color:white;
 }
 
 ion-button{
@@ -22,10 +22,7 @@ ion-content{
 	--background:#2E437A;
 }
 
-ion-card-title{
-    --color:black;
-}
 
-ion-buttons{
-    --background: #1D1766;
+ion-card-header{
+	--color:#2E437A;
 }
