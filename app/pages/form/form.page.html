@@ -1,52 +1,72 @@
-<ion-header [translucent]="true">
+<ion-header >
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="mostrarMenu()">
-        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Formulario de registro</ion-title>
+    <ion-title>Registro de usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+
   <ion-card>
-    <ion-card-header>
-      <ion-card-title>Registrate!!</ion-card-title>
-    </ion-card-header>
     <ion-card-content>
-      <form >
+      <form [formGroup]="registrationForm" (ngSubmit)="register()">
         <ion-list>
           <ion-item>
-            <ion-label position="floating">Ingresa tu nombre!!</ion-label>
-            <ion-input type="text" placeholder="Harry.." name="nombre"
-            [(ngModel)]="persona.nombre"></ion-input>
+            <ion-label position="floating">Nombre de usuario</ion-label>
+            <ion-input formControlName="username" type="text"></ion-input>
           </ion-item>
-
           <ion-item>
-            <ion-label position="floating">Ingresa tu email!!</ion-label>
-            <ion-input type="email" placeholder="Harry@duocuc.cl" name="nombre"
-            [(ngModel)]="persona.email"></ion-input>
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
           </ion-item>
-
           <ion-item>
-            <ion-label position="floating">Ingresa tu password!!</ion-label>
-            <ion-input type="password" placeholder="Ingresa tu contraseña" name="nombre"
-            [(ngModel)]="persona.password"></ion-input>
+            <ion-label position="floating">Contraseña:</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
           </ion-item>
-
-          <ion-item>
-            <ion-label position="floating">Ingresa tu password otra vez!!</ion-label>
-            <ion-input type="password" placeholder="Ingresa tu contraseña" name="nombre"
-            [(ngModel)]="persona.password2"></ion-input>
-          </ion-item>
-
-          <ion-button (click)="Enviar()" expand="block" fill="solid" color="warning">
-            Enviar
-          </ion-button>
-
         </ion-list>
-      </form>
+
+        <br>
+
+        <ion-list>
+          <ion-item>
+            <ion-select formControlName="clases" placeholder="Selecione Las Clases Que Impartira:" [multiple]="true">
+              <ion-select-option value="Estadistica Descriptiva">Estadistica Descriptiva</ion-select-option>
+              <ion-select-option value="Programacion De Algoritmos">Programacion De Algoritmos</ion-select-option>
+              <ion-select-option value="Etica Para El Trabajo">Etica Para El Trabajo</ion-select-option>
+              <ion-select-option value="Ingles Intermedio">Ingles Intermedio</ion-select-option>
+              <ion-select-option value="Arquitectura">Arquitectura</ion-select-option>
+              <ion-select-option value="Calidad De Software">Calidad De Software</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+        <br>
+
+        <ion-list>
+          <ion-item>
+            <ion-select  formControlName="semestre" placeholder="Semestre">
+              <ion-select-option value="Primer Semestre">Primer Semestre</ion-select-option>
+              <ion-select-option value="Segundo Semestre">Segundo Semestre</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        
+
+        <ion-button type="submit" expand="full" [disabled]="!registrationForm.valid">Registrarse</ion-button>
+      </form>   
     </ion-card-content>
   </ion-card>
+
+  
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/login']">
+        Volver al login 
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+
