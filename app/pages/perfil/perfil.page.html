@@ -1,0 +1,112 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="mostrarMenu()" slot="start" >
+        <ion-icon slot="icon-only" name="menu-outline" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title >Perfil de usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <!-- Mostrar datos del usuario -->
+
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Email:</ion-label>
+          <ion-text>{{ userData?.email }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Nombre Completo:</ion-label>
+          <ion-text>{{ userData?.fullName }}</ion-text>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Becas:</ion-label>
+          <ion-text>{{ userData?.becas}}</ion-text>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Género:</ion-label>
+          <ion-text>{{ userData?.gender}}</ion-text>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Nombre de sostenedor:</ion-label>
+          <ion-text>{{ userData?.sostenedorName}}</ion-text>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Fecha Nacimiento:</ion-label>
+          <ion-text>{{ userData?.birthdate}}</ion-text>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Celular:</ion-label>
+          <ion-text>{{ userData?.phoneNumber}}</ion-text>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Pueblo Originario:</ion-label>
+          <ion-text>{{ userData?.puebloOriginario}}</ion-text>
+        </ion-item>
+        <!-- Agrega otros campos según tus datos de usuario -->
+        <ion-button (click)="isEditing = true" expand="full">Editar perfil</ion-button>
+
+        <br>
+
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list *ngIf="isEditing">
+        <!-- Campos editables durante la edición -->
+        <ion-item>
+          <ion-label position="stacked">Género</ion-label>
+          <ion-select [(ngModel)]="gender" name="gender" required>
+            <ion-select-option value="Hombre">Hombre</ion-select-option>
+            <ion-select-option value="Mujer">Mujer</ion-select-option>
+            <ion-select-option value="Otro">Otros</ion-select-option>
+          </ion-select>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="stacked">Número de Teléfono:</ion-label>
+          <ion-input [(ngModel)]="phoneNumber" type="number"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Nombre del Sostenedor:</ion-label>
+          <ion-input [(ngModel)]="sostenedorName" type="text"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="stacked">Becas</ion-label>
+          <ion-select [(ngModel)]="becas" name="becas" required>
+            <ion-select-option value="Si">Si</ion-select-option>
+            <ion-select-option value="No">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <!-- Agregar otros campos editables según tus datos de usuario -->
+    
+        <!-- Botón para actualizar los datos específicos y salir de la edición -->
+        <ion-button (click)="updateSpecificUserData()" expand="full">Guardar cambios</ion-button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+
+
+
+</ion-content>

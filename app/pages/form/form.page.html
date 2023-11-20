@@ -8,65 +8,96 @@
 
   <ion-card>
     <ion-card-content>
-      <form [formGroup]="registrationForm" (ngSubmit)="register()">
-        <ion-list>
-          <ion-item>
-            <ion-label position="floating">Nombre de usuario</ion-label>
-            <ion-input formControlName="username" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Correo electrónico</ion-label>
-            <ion-input formControlName="email" type="email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Contraseña:</ion-label>
-            <ion-input formControlName="password" type="password"></ion-input>
-          </ion-item>
-        </ion-list>
+      <h1 style="color: black;">Formulario de registro</h1>
+      <br>
+
+      <form (ngSubmit)="registerUser()" id="mainForm">
+        <ion-item>
+          <ion-label position="stacked">Nombre Completo</ion-label>
+          <ion-input type="text" [(ngModel)]="fullName" name="fullName" required></ion-input>
+        </ion-item>
+      
+        <br>
+      
+        <ion-item>
+          <ion-label position="stacked">Celular</ion-label>
+          <ion-input type="number" [(ngModel)]="phoneNumber" name="phoneNumber" required></ion-input>
+        </ion-item>
+      
+        <br>
+
+        <ion-item>
+          <ion-label position="stacked">Género</ion-label>
+          <ion-select [(ngModel)]="gender" name="gender" required>
+            <ion-select-option value="hombre">Hombre</ion-select-option>
+            <ion-select-option value="mujer">Mujer</ion-select-option>
+            <ion-select-option value="otros">Otros</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <br>
+      
+        <ion-item>
+          <ion-label position="stacked">Becas</ion-label>
+          <ion-select [(ngModel)]="becas" name="becas" required>
+            <ion-select-option value="Si">Si</ion-select-option>
+            <ion-select-option value="No">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <br>
+
+        <ion-item>
+          <ion-label position="stacked">¿Pertenece a un Pueblo originario?</ion-label>
+          <ion-select [(ngModel)]="puebloOriginario" name="puebloOriginario" required>
+            <ion-select-option value="Si">Si</ion-select-option>
+            <ion-select-option value="No">No</ion-select-option>
+          </ion-select>
+        </ion-item>
 
         <br>
 
-        <ion-list>
-          <ion-item>
-            <ion-select formControlName="clases" placeholder="Selecione Las Clases Que Impartira:" [multiple]="true">
-              <ion-select-option value="Estadistica Descriptiva">Estadistica Descriptiva</ion-select-option>
-              <ion-select-option value="Programacion De Algoritmos">Programacion De Algoritmos</ion-select-option>
-              <ion-select-option value="Etica Para El Trabajo">Etica Para El Trabajo</ion-select-option>
-              <ion-select-option value="Ingles Intermedio">Ingles Intermedio</ion-select-option>
-              <ion-select-option value="Arquitectura">Arquitectura</ion-select-option>
-              <ion-select-option value="Calidad De Software">Calidad De Software</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-list>
+        <ion-item>
+          <ion-label position="stacked">Nombre Completo del sostenedor</ion-label>
+          <ion-input type="text" [(ngModel)]="sostenedorName" name="fullName" required></ion-input>
+        </ion-item>
 
         <br>
-
-        <ion-list>
-          <ion-item>
-            <ion-select  formControlName="semestre" placeholder="Semestre">
-              <ion-select-option value="Primer Semestre">Primer Semestre</ion-select-option>
-              <ion-select-option value="Segundo Semestre">Segundo Semestre</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-list>
         
+      
+        <ion-item>
+          <ion-label position="stacked">Fecha de nacimiento:</ion-label>
+          <ion-input type="date" [(ngModel)]="birthdate" name="birthdate" required></ion-input>
+        </ion-item>
 
-        <ion-button type="submit" expand="full" [disabled]="!registrationForm.valid">Registrarse</ion-button>
-      </form>   
+        <br>
+
+        <ion-item>
+          <ion-label position="stacked">Correo electrónico</ion-label>
+          <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+        </ion-item>
+      
+        <br>
+      
+        <ion-item>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+        </ion-item>
+
+        <br>
+
+        <ion-button expand="full" type="submit">Registrarse</ion-button>
+      </form>
+    
+    <br>
+
+    <a href="/login">¿Ya estas registrado?</a>
+
+
     </ion-card-content>
   </ion-card>
 
   
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar color="warning">
-    <ion-buttons slot="end">
-      <ion-button [routerLink]="['/login']">
-        Volver al login 
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
 
 

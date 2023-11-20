@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ServiceService } from '../../firebase/service.service';
 
-import { NavController } from '@ionic/angular';
-
-
-
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -18,46 +14,54 @@ import { NavController } from '@ionic/angular';
 
 export class FormPage implements OnInit {
 
-
-  registrationForm: FormGroup;
+  email: string = '';
+  password: string = '';
+  fullName: string = '';
+  phoneNumber: string ='' ;
+  gender: string = ''; // Nuevo campo para el género
+  becas: string = ''; // Nuevo campo para becas
+  birthdate: string = ''; // Nuevo campo para la fecha de nacimieto
+  puebloOriginario:string = '';
+  sostenedorName:string = '';
   
-  constructor(private formBuilder: FormBuilder, private navCtrl: NavController) {
-    this.registrationForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      clases: [[], [Validators.required, this.validaClase]],
-      semestre: [[],[Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
-    });
+  constructor(private serviceService:ServiceService,  private router: Router) {
+
+
   }
 
-  validaClase(control: FormControl) {
-    const clases = control.value as string[];
-    if (clases && clases.length === 2) {
-      return null; // La validación es exitosa
+  ngOnInit(){
+
+  } 
+  
+  async registerUser() {
+    try {
+      const credentials = await this.serviceService.registerUser(this.email, this.password);
+      console.log(credentials);
+
+      // Registro exitoso, ahora puedes guardar los datos del formulario
+      await this.serviceService.saveFormData(
+        this.fullName,
+        this.phoneNumber,
+        this.email,
+        this.gender,
+        this.becas,
+        this.birthdate,
+        this.sostenedorName,
+        this.puebloOriginario
+      );
+      
+      this.router.navigate(['/login']);
+
+    } catch (error) {
+      console.error(error);
+      // Manejar el error, por ejemplo, mostrar un mensaje al usuario
     }
-    return { selectwoClases: true }; // La validación falla
-  }
-
-  ngOnInit(){}
-  
-  
-  register() {
-    // Realiza las validaciones del formulario
-  
-    // Almacenar los datos en el localStorage
-    localStorage.setItem('userData', JSON.stringify({
-      username: this.registrationForm.value.username,
-      email: this.registrationForm.value.email,
-      password: this.registrationForm.value.password,
-      clases: this.registrationForm.value.clases,
-      semestre:this.registrationForm.value.semestre
-    }));
-  
-    // Redirigir al usuario a la página de inicio de sesión
-    this.navCtrl.navigateForward('/login');
   }
   
-
-
 }
+
+
+
+
+  
+

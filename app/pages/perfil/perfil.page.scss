@@ -8,7 +8,8 @@ ion-title {
 
 
 ion-card{
-	--background: #2E437A;
+	--background: white;
+    --color:white;
 }
 
 ion-button{
@@ -19,4 +20,9 @@ ion-button{
 
 ion-content{
 	--background:#2E437A;
+}
+
+
+ion-card-header{
+	--color:#2E437A;
 }

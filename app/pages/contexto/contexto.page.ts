@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MenuController } from '@ionic/angular';
+
 @Component({
   selector: 'app-contexto',
   templateUrl: './contexto.page.html',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContextoPage implements OnInit {
 
-  constructor() { }
+
+  constructor(private menuController: MenuController) {}
 
   ngOnInit() {
   }
 
+  mostrarMenu(){
+    this.menuController.open('first')
+  }
 }

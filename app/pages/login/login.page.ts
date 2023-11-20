@@ -1,38 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { NavController } from '@ionic/angular';
+import { ServiceService } from '../../firebase/service.service';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+
+
+export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private navCtrl: NavController) {}
 
-  login() {
-    // Verifica si hay datos en el localStorage
-    const storedUserDataString = localStorage.getItem('userData');
+  constructor(private serviceService:ServiceService,  private router: Router) {
 
-    if (storedUserDataString) {
-      const storedUserData = JSON.parse(storedUserDataString);
+  }
 
-      if (
-        this.email === storedUserData.email &&
-        this.password === storedUserData.password
-      ) {
-        // Los datos de inicio de sesión son válidos, redirige al usuario a la página de inicio
-        this.navCtrl.navigateForward('/inicio');
-      } else {
-        // Datos de inicio de sesión incorrectos, muestra un mensaje de error
-        console.log('Correo electrónico o contraseña incorrectos');
-      }
-    } else {
-      // No se encontraron datos en el localStorage, muestra un mensaje de error
-      console.log('No se encontraron datos de registro');
+  async signIn() {
+    try {
+      const credentials = await this.serviceService.signIn(this.email, this.password);
+      console.log(credentials);
+
+      // Redirigir al usuario a la página home si el inicio de sesión es exitoso
+      this.router.navigate(['/inicio']);
+    } catch (error) {
+
+      // Puedes mostrar un mensaje de error al usuario si lo deseas
     }
   }
+
+  ngOnInit() {
+  }
+
+
+  
+
+
 }

@@ -1,7 +1,9 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" >
-      <ion-menu-button auto-hide="false" color="warning"></ion-menu-button>
+    <ion-buttons slot="start">
+      <ion-button (click)="mostrarMenu()">
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Contexto</ion-title>
   </ion-toolbar>
