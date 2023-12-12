@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { Router } from '@angular/router';
+import { BarcodeScanner, SupportedFormat } from '@capacitor-community/barcode-scanner';
 import { AlertController } from '@ionic/angular';
-
-import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-escaner',
@@ -11,44 +10,56 @@ import { MenuController } from '@ionic/angular';
 })
 export class EscanerPage implements OnInit {
 
-  isSupported = false;
-  barcodes: Barcode[] = [];
-
-  constructor(private alertController: AlertController,private menuController: MenuController) {}
+  constructor(private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
-    BarcodeScanner.isSupported().then((result) => {
-      this.isSupported = result.supported;
-    });
+    this.prepare();
   }
 
-  async scan(): Promise<void> {
-    const granted = await this.requestPermissions();
-    if (!granted) {
-      this.presentAlert();
-      return;
+  async prepare() {
+    await BarcodeScanner.prepare();
+    this.startScan();
+  }
+
+  async startScan() {
+    try {
+      // Check camera permission
+      await BarcodeScanner.checkPermission({ force: true });
+
+      // Make background of WebView transparent
+      BarcodeScanner.hideBackground();
+
+      // Start scanning and wait for a result
+      const result = await BarcodeScanner.startScan({ targetedFormats: [SupportedFormat.QR_CODE] });
+
+      // If the result has content
+      if (result.hasContent) {
+        console.log(result.content); // Log the raw scanned content
+
+        this.askUserToOpenLink(result.content);
+        
+
+        // Redirigir a la página de inicio
+        //this.router.navigate(['/inicio']); // Ajusta la ruta según la configuración de tus rutas
+      }
+    } catch (error) {
+      console.error('Error during scanning:', error);
+    } finally {
+      // Show background and stop scanning (whether it was successful or not)
+      BarcodeScanner.showBackground();
+      BarcodeScanner.stopScan();
     }
-    const { barcodes } = await BarcodeScanner.scan();
-    this.barcodes.push(...barcodes);
   }
 
-  async requestPermissions(): Promise<boolean> {
-    const { camera } = await BarcodeScanner.requestPermissions();
-    return camera === 'granted' || camera === 'limited';
+  async askUserToOpenLink(link: string) {
+    const userResponse = confirm(`¿Quieres abrir el enlace?\n${link}`);
+  
+    if (userResponse) {
+      // Redirige a la página 'asistencia' con los datos del QR como parámetros
+      this.router.navigate(['/asistencia'], { state: { qrData: link } });
+    } else {
+      // Si el usuario elige no abrir el enlace, redirige a la página de inicio
+      this.router.navigate(['/asistencia']); // Ajusta la ruta según la configuración de tus rutas
+    }
   }
-
-  async presentAlert(): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Permission denied',
-      message: 'Please grant camera permission to use the barcode scanner.',
-      buttons: ['OK'],
-    });
-    await alert.present();
-  }
-
-  mostrarMenu(){
-    this.menuController.open('first')
-  }
-
 }
-
