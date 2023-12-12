@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ApiPage } from './api.page';
+import { ResetpasswordPage } from './resetpassword.page';
 
-describe('ApiPage', () => {
-  let component: ApiPage;
-  let fixture: ComponentFixture<ApiPage>;
+describe('ResetpasswordPage', () => {
+  let component: ResetpasswordPage;
+  let fixture: ComponentFixture<ResetpasswordPage>;
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(ApiPage);
+    fixture = TestBed.createComponent(ResetpasswordPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

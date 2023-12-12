@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword,
-         Auth,UserCredential,signInWithEmailAndPassword,signOut,onAuthStateChanged, User, updateProfile  } from "firebase/auth";
+         Auth,UserCredential,signInWithEmailAndPassword,signOut,onAuthStateChanged, User, updateProfile,sendPasswordResetEmail } from "firebase/auth";
 import { getDatabase,get, ref, set,update  } from 'firebase/database';
 
 
@@ -103,6 +103,9 @@ export class ServiceService {
     }
   }
   
+  resetPassword(email: string): Promise<void> {
+    return sendPasswordResetEmail(this.auth, email);
+  }
 }
 
 
